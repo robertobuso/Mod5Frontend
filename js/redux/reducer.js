@@ -8,6 +8,14 @@ const initialState = {
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
+
+    case 'CHOOSE_AUDIO':
+    console.log("In reducer! ", action.payload)
+      return {
+        ...state,
+        audio: action.payload
+      }
+
      default:
        return state
    }

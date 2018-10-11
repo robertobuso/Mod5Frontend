@@ -17,13 +17,15 @@ import {
   TouchableHighlight,
 } from 'react-native';
 
+import { connect } from 'react-redux'
+
+import { chooseAudio } from './js/redux/actions'
+
+
 import {
   ViroARSceneNavigator
 } from 'react-viro';
 
-/*
- TODO: Insert your API key below
- */
 const sharedProps = {
   apiKey:"1A853839-79AE-41CD-9C29-B554308C3C81",
 }
@@ -71,19 +73,20 @@ export default class ViroSample extends Component {
           <View style={localStyles.buttonInner}>
             <View style={localStyles.container}>
               <TouchableHighlight style={localStyles.buttons}
-                onPress={() => this._setAudio('audio')}
+                onPress={() => this.props.chooseAudio('audio')
+                }
                 underlayColor={'#68a0ff'} >
                 <Text style={localStyles.buttonText}>audio</Text>
               </TouchableHighlight>
 
               <TouchableHighlight style={localStyles.buttons}
-                onPress={() => this._setAudio('titles')}
+                onPress={() => this.props.chooseAudio('titles')}
                 underlayColor={'#68a0ff'} >
                 <Text style={localStyles.buttonText}>titles</Text>
               </TouchableHighlight>
 
               <TouchableHighlight style={localStyles.buttons}
-                onPress={(event) => this._setAudio('both')}
+                onPress={(event) => this.props.chooseAudio('both')}
                 underlayColor={'#68a0ff'}>
                 <Text style={localStyles.buttonText}>both</Text>
               </TouchableHighlight>
@@ -206,4 +209,4 @@ const localStyles = StyleSheet.create({
   }
 });
 
-module.exports = ViroSample
+module.exports =  connect(null, { chooseAudio } )(ViroSample)

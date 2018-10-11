@@ -14,7 +14,7 @@ import {
   ViroMaterials
 } from 'react-viro';
 
-export default class HelloWorldSceneAR extends Component {
+export default class BookScene extends Component {
 
   constructor() {
     super();
@@ -74,4 +74,4 @@ ViroMaterials.createMaterials({
    },
 });
 
-module.exports = HelloWorldSceneAR;
+module.exports = BookScene;

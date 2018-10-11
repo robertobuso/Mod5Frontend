@@ -9,12 +9,14 @@ import reducer from './js/redux/reducer'
 
 const store = createStore(reducer)
 
-
-AppRegistry.registerComponent('Mod5Frontend', () => {
+const Beef = () => (
   <Provider store={store}>
     <App />
   </Provider>
-});
+)
+
+AppRegistry.registerComponent('Mod5Frontend', () => Beef
+);
 
 // The below line is necessary for use with the TestBed App
-AppRegistry.registerComponent('ViroSample', () => App);
+AppRegistry.registerComponent('ViroSample', () => Beef);
