@@ -73,20 +73,20 @@ export default class ViroSample extends Component {
           <View style={localStyles.buttonInner}>
             <View style={localStyles.container}>
               <TouchableHighlight style={localStyles.buttons}
-                onPress={() => this.props.chooseAudio('audio')
+                onPress={() => this._setAudio('audio')
                 }
                 underlayColor={'#68a0ff'} >
                 <Text style={localStyles.buttonText}>audio</Text>
               </TouchableHighlight>
 
               <TouchableHighlight style={localStyles.buttons}
-                onPress={() => this.props.chooseAudio('titles')}
+                onPress={() => this._setAudio('titles')}
                 underlayColor={'#68a0ff'} >
                 <Text style={localStyles.buttonText}>titles</Text>
               </TouchableHighlight>
 
               <TouchableHighlight style={localStyles.buttons}
-                onPress={(event) => this.props.chooseAudio('both')}
+                onPress={(event) => this._setAudio('both')}
                 underlayColor={'#68a0ff'}>
                 <Text style={localStyles.buttonText}>both</Text>
               </TouchableHighlight>
@@ -117,14 +117,19 @@ export default class ViroSample extends Component {
   }
 
   _handleStartButton = () => {
-    //We need to check if the audio button has been selected. For that we need the Redux state.
-    this.setState({
-       navigatorType: AR_NAVIGATOR_TYPE
-    })
+    if (this.props.audio === '') {
+      return (
+        <Text style={localStyles.titleText}>Please choose audio.</Text>
+      )
+    } else {
+      this.setState({
+         navigatorType: AR_NAVIGATOR_TYPE
+      })
+    }
   }
 
-  _setAudio = (audioSelection) => {
-    console.log('Event: ', audioSelection)
+   _setAudio = (audioSelection) => {
+    this.props.chooseAudio(audioSelection)
   }
 
   // This function "exits" Viro by setting the navigatorType to UNSET.
@@ -209,4 +214,8 @@ const localStyles = StyleSheet.create({
   }
 });
 
-module.exports =  connect(null, { chooseAudio } )(ViroSample)
+const mapStateToProps = (state) => {
+  return state
+}
+
+module.exports =  connect(mapStateToProps, { chooseAudio } )(ViroSample)

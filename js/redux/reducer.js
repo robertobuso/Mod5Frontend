@@ -7,8 +7,8 @@ const initialState = {
        }
 
 const reducer = (state = initialState, action) => {
-  switch (action.type) {
 
+  switch (action.type) {
     case 'CHOOSE_AUDIO':
     console.log("In reducer! ", action.payload)
       return {
