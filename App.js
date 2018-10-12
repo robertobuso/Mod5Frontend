@@ -15,12 +15,12 @@ import {
   StyleSheet,
   PixelRatio,
   TouchableHighlight,
+  Alert
 } from 'react-native';
 
 import { connect } from 'react-redux'
 
 import { chooseAudio } from './js/redux/actions'
-
 
 import {
   ViroARSceneNavigator
@@ -30,7 +30,6 @@ const sharedProps = {
   apiKey:"1A853839-79AE-41CD-9C29-B554308C3C81",
 }
 
-// Sets the default scene you want for AR and VR
 const InitialARScene = require('./js/scenes/BookScene');
 
 const UNSET = "UNSET";
@@ -47,8 +46,6 @@ export default class ViroSample extends Component {
     }
   }
 
-  // Replace this function with the contents of _getVRNavigator() or _getARNavigator()
-  // if you are building a specific type of experience.
   render() {
     if (this.state.navigatorType == UNSET) {
       return this._startExperience();
@@ -57,16 +54,17 @@ export default class ViroSample extends Component {
     }
   }
 
-  // Presents the user with a choice of an AR or VR experience
   _startExperience = () => {
     return (
       <View style={localStyles.outer} >
         <View style={localStyles.inner} >
-
           <Text style={localStyles.titleText}>
-            You may cut all the
+            They May Cut All the{' '}
             <Text style={localStyles.flowerText}>
-              flowers...
+              Flowers
+            </Text>
+            <Text style={localStyles.titleText}>
+              ...
             </Text>
           </Text>
 
@@ -78,13 +76,13 @@ export default class ViroSample extends Component {
                 underlayColor={'#68a0ff'} >
                 <Text style={localStyles.buttonText}>audio</Text>
               </TouchableHighlight>
-
+              {' '}
               <TouchableHighlight style={localStyles.buttons}
                 onPress={() => this._setAudio('titles')}
                 underlayColor={'#68a0ff'} >
                 <Text style={localStyles.buttonText}>titles</Text>
               </TouchableHighlight>
-
+              {' '}
               <TouchableHighlight style={localStyles.buttons}
                 onPress={(event) => this._setAudio('both')}
                 underlayColor={'#68a0ff'}>
@@ -97,10 +95,8 @@ export default class ViroSample extends Component {
             <TouchableHighlight style={localStyles.buttons}
               onPress={(event) => this._handleStartButton(event)}
               underlayColor={'#68a0ff'} >
-
               <Text style={localStyles.buttonText}>start</Text>
             </TouchableHighlight>
-
           </View>
 
         </View>
@@ -108,7 +104,6 @@ export default class ViroSample extends Component {
     );
   }
 
-  // Returns the ViroARSceneNavigator which will start the AR experience
   _getARNavigator = () => {
     return (
       <ViroARSceneNavigator {...this.state.sharedProps}
@@ -118,9 +113,15 @@ export default class ViroSample extends Component {
 
   _handleStartButton = () => {
     if (this.props.audio === '') {
-      return (
-        <Text style={localStyles.titleText}>Please choose audio.</Text>
-      )
+      Alert.alert(
+        'Please Choose Audio',
+  'Press one of the three choices.',
+  [
+    {text: 'OK', onPress: () => console.log('OK Pressed')}
+  ],
+  { cancelable: false }
+)
+
     } else {
       this.setState({
          navigatorType: AR_NAVIGATOR_TYPE
